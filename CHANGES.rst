@@ -1,5 +1,9 @@
 CHANGES
 =======
+1.2.7
+-----
+* Minor changes to allow Cython 3.0 to properly compile package.
+* Installable for python up to 3.14
 
 1.2.6
 -----

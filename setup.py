@@ -10,6 +10,7 @@ class build_ext_custom(build_ext):
         self.include_dirs.append(numpy.get_include())
         build_ext.run(self)
 
+
 if get_platform() == "win32" or get_platform() == "win-amd64":
     libraries = []
 else:
@@ -35,8 +36,8 @@ classifiers = [
     'Operating System :: OS Independent'
     ]
 
-setup(name = 'minepy',
-      version='1.2.6',
+setup(name='minepy',
+      version='1.2.7',
       description='minepy - Maximal Information-based Nonparametric Exploration',
       long_description=open('README.rst').read(),
       author='Davide Albanese',
@@ -47,9 +48,9 @@ setup(name = 'minepy',
       download_url='http://minepy.readthedocs.io',
       license='GPLv3',
       packages=['minepy'],
-      setup_requires = ['numpy >= 1.3.0'],
-      install_requires = ['numpy >= 1.3.0'],
+      setup_requires=['numpy >= 1.3.0'],
+      install_requires=['numpy >= 1.3.0'],
       classifiers=classifiers,
       ext_modules=ext_modules,
-      cmdclass = {'build_ext': build_ext_custom}
+      cmdclass={'build_ext': build_ext_custom}
     )
