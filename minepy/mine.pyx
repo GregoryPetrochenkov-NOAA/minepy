@@ -28,6 +28,7 @@ from libc.stdlib cimport *
 from .libmine cimport *
 cimport cython
 
+
 np.import_array()
 
 version = libmine_version
@@ -98,7 +99,9 @@ cdef class MINE:
         if self.score is NULL:
             raise ValueError("problem with mine_compute_score()")
 
-    cdef void _free_score(self) nogil:
+    @cython.cfunc
+    @cython.exceptval(check=False)
+    cdef void _free_score(self) noexcept nogil:
         mine_free_score(&self.score)
 
     def __dealloc__(self):
@@ -265,11 +268,11 @@ def pstats(X, alpha=0.6, c=15, est="mic_approx"):
     shape[0] = <np.npy_intp> pstats.n
     mica = np.PyArray_SimpleNewFromData(1, shape, np.NPY_DOUBLE,
                                         <void *> pstats.mic)
-    np.PyArray_UpdateFlags(mica, mica.flags.num | np.NPY_OWNDATA)
+    np.PyArray_UpdateFlags(mica, mica.flags.num | np.NPY_ARRAY_OWNDATA)
 
     tica = np.PyArray_SimpleNewFromData(1, shape, np.NPY_DOUBLE,
                                         <void *> pstats.tic)
-    np.PyArray_UpdateFlags(tica, tica.flags.num | np.NPY_OWNDATA)
+    np.PyArray_UpdateFlags(tica, tica.flags.num | np.NPY_ARRAY_OWNDATA)
 
     free(pstats)
 
