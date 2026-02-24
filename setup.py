@@ -1,6 +1,6 @@
 from setuptools import setup, Extension
 from setuptools.command.build_ext import build_ext
-from pkg_resources import get_platform
+import platform
 
 
 # import numpy only when it is needed
@@ -10,8 +10,7 @@ class build_ext_custom(build_ext):
         self.include_dirs.append(numpy.get_include())
         build_ext.run(self)
 
-
-if get_platform() == "win32" or get_platform() == "win-amd64":
+if platform.system() == "Windows" or platform.machine() == 'AMD64':
     libraries = []
 else:
     libraries = ['m']
